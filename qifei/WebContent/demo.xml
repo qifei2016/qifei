@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<recipe id="1">
+	    <!--配置信息-->
+	    <deployInformation settime="2016-1-3">
+			<charset>GB2312</charset>
+	        <method></method>
+	        <step grade="0">
+				<substep>
+					<infotype>url</infotype>
+					<crawltype>dom</crawltype>
+					<crawlrule>tag=a</crawlrule>
+				</substep>
+				<substep>
+					<infotype>date</infotype>
+					<crawltype>regex</crawltype>
+					<crawlrule>\d{4}-\d{2}-\d{2}</crawlrule>
+				</substep>
+	        </step>
+	        <step grade="1">
+	            <substep>
+					<infotype></infotype>
+					<crawltype></crawltype>
+					<crawlrule></crawlrule>
+				</substep>
+				<substep>
+					<infotype></infotype>
+					<crawltype></crawltype>
+					<crawlrule></crawlrule>
+				</substep>
+	        </step>
+	    </deployInformation>
+	    <!--检测信息-->
+	    <testInformation>
+	        <dateFormat></dateFormat>
+	        <dateRange></dateRange>
+	        <valueFormat></valueFormat>
+	        <valueRange></valueRange>
+	    </testInformation>
+	</recipe>
+	<recipe id="2">
+	    <!--配置信息-->
+	    <deployInformation settime="2016-1-3">
+			<charset>GB2312</charset>
+	        <method></method>
+	        <step grade="0">
+				<substep>
+					<infotype>url</infotype>
+					<crawltype>dom</crawltype>
+					<crawlrule>tag=a</crawlrule>
+				</substep>
+				<substep>
+					<infotype>date</infotype>
+					<crawltype>regex</crawltype>
+					<crawlrule>\d{4}-\d{2}-\d{2}</crawlrule>
+				</substep>
+	        </step>
+	        <step grade="1">
+	            <substep>
+					<infotype></infotype>
+					<crawltype></crawltype>
+					<crawlrule></crawlrule>
+				</substep>
+				<substep>
+					<infotype></infotype>
+					<crawltype></crawltype>
+					<crawlrule></crawlrule>
+				</substep>
+	        </step>
+	    </deployInformation>
+	    <!--检测信息-->
+	    <testInformation>
+	        <dateFormat></dateFormat>
+	        <dateRange></dateRange>
+	        <valueFormat></valueFormat>
+	        <valueRange></valueRange>
+	    </testInformation>
+	</recipe>
+	<recipe id="10100">
+    <deployInformation settime="2016-01-09">
+      <charset>utf-8</charset>
+      <method>1</method>
+	  <url>http://www.yumi.com.cn/yumijiage/pricelist/third_id/33/page/1.html</url>
+	  <baseurl>http://www.yumi.com.cn/</baseurl>
+      <step>
+        <substep>
+          <infotype>url</infotype>
+          <crawltype>dom</crawltype>
+          <crawlrule>id=priceRstShow[0]>tag=a</crawlrule>
+        </substep>
+        <substep>
+          <infotype>url</infotype>
+          <crawltype>condition</crawltype>
+          <crawlrule>attr(title)=新克拉玛依</crawlrule>
+        </substep>
+      </step>
+      <step>
+        <substep>
+          <infotype>date</infotype>
+          <crawltype>dom</crawltype>
+          <crawlrule>class=container[0]</crawlrule>
+        </substep>
+        <substep>
+          <infotype>date</infotype>
+          <crawltype>regex</crawltype>
+          <crawlrule>\d{4}年\d{1,2}月\d{1,2}日</crawlrule>
+        </substep>
+		<substep>
+          <infotype>value</infotype>
+          <crawltype>dom</crawltype>
+          <crawlrule>class=con1Text[0]</crawlrule>
+        </substep>
+        <substep>
+          <infotype>value</infotype>
+          <crawltype>regex</crawltype>
+          <crawlrule>\d+(\.\d+)*元\/公斤</crawlrule>
+        </substep>
+      </step>
+    </deployInformation>
+    <testInformation>
+      <dateFormat></dateFormat>
+	  <dateRange></dateRange>
+	  <valueFormat></valueFormat>
+	  <valueRange></valueRange>
+    </testInformation>
+  </recipe>
+</root>
