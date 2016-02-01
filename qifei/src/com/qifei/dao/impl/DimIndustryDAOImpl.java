@@ -24,4 +24,12 @@ public class DimIndustryDAOImpl extends BasicHibernateDAOImpl implements DimIndu
 	public Class getEntityClass() {
 		return DimIndustry.class;
 	}
+
+	@Override
+	public int getMaxDimIndustryId() {
+		int id = 0;
+		String hql = "select max(industryId) from DimIndustry";
+		id = (Integer)sessionFactory.getCurrentSession().createQuery(hql).uniqueResult();
+		return id+1;
+	}
 }

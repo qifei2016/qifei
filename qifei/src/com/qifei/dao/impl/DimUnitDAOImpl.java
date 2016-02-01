@@ -25,4 +25,12 @@ public class DimUnitDAOImpl extends BasicHibernateDAOImpl implements DimUnitDAO 
 		return DimUnit.class;
 	}
 
+	@Override
+	public int getMaxUnitId() {
+		int id = 0;
+		String hql = "select max(unitId) from DimUnit";
+		id = (Integer)sessionFactory.getCurrentSession().createQuery(hql).uniqueResult();
+		return id+1;
+	}
+
 }

@@ -8,4 +8,5 @@ public interface DimBaseclassDAO extends BasicDAO {
 	
 	public List<DimBaseclass> getAllDimBaseclass();
 	
+	public int getMaxBaseclassId();
 }

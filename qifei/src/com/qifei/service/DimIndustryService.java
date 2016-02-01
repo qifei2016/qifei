@@ -11,4 +11,6 @@ public interface DimIndustryService {
 	
 	public void saveDimIndustry(List<DimIndustry> dimIndustry);
 
+	public int getMaxDimIndustryId();
+	
 }

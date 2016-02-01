@@ -14,6 +14,9 @@
 	href="./resources/bootstrap/css/bootstrap-theme.min.css">
 <link rel="stylesheet"
 	href="./resources/bootstrap/css/bootstrap-table.min.css">
+<link rel="stylesheet"
+	href="./resources/bootstrap/css/bootstrap-editable.css">
+<link rel="stylesheet" href="./resources/css/newOrEdit.css">
 
 <script type="text/javascript"
 	src="./resources/bootstrap/js/jquery.min.js"></script>
@@ -23,19 +26,25 @@
 <script src="./resources/bootstrap/js/bootstrap.min.js"></script>
 <script src="./resources/bootstrap/js/bootstrap-table.min.js"></script>
 <script src="./resources/bootstrap/js/bootstrap-table-zh-CN.min.js"></script>
+<script src="./resources/bootstrap/js/bootstrap-editable.js"></script>
 </head>
 
 <body>
 	<div class="top"
-		style="border:1px solid #000; width:70%;float:left; padding-bottom: 8px; height:120px;">
+		style="border:1px solid #000; width:70%;float:left; padding-bottom: 8px; height:150px;">
 		<div style="background-color:lightskyblue; width:100%; height:25px;">
-			<button type="button" class="btn btn-default btn-xs" onclick="window.location='allPages.jsp'">返回一览</button>
+			<button type="button" class="btn btn-default btn-xs"
+				onclick="window.location='allPages.jsp'">返回一览</button>
 			<span style="text-align:center">属性设置</span>
 		</div>
 		<div style="padding-top:8px;">
 			<label class="control-label" style="padding-left:30px;">名称：</label>
 			<div class="btn-group" style="padding-left:27px">
-				<input type="text" style="width:205px;height:33px;" id="name">
+				<input type="text" style="width:205px;height:33px;" id="name"
+					name="name" onblur="v_name();">
+				<div class="none" id="line_name">
+					<span></span>
+				</div>
 			</div>
 			<label class="control-label" style="padding-left:50px;">关键字：</label>
 			<input type="text" placeholder="" class="input-xlarge"
@@ -45,23 +54,39 @@
 			<label class="control-label" style="padding-left:30px;">配置分类：</label>
 			<div class="btn-group">
 				<select class="selectpicker" style="width: 205px;height:33px;"
-					id="allDimUnits">
+					id="allDimUnits" onchange="unitsChange()">
 				</select>
+				<div id="dimunit" style="display:none;">
+					<input id="newDimunits" style="width: 205px;height:33px;" />
+					<button class="btn btn-info" onclick="saveDimunit()">保存</button>
+				</div>
 			</div>
 			<div class="btn-group" style="padding-left:50px">
 				<select class="selectpicker" style="width: 205px;height:33px;"
-					id="allDimIndustry">
+					id="allDimIndustry" onchange="industryChange()">
 				</select>
+				<div id="dimIndustry" style="display:none;">
+					<input id="newDimIndustry" style="width: 205px;height:33px;" />
+					<button class="btn btn-info" onclick="saveDimIndustry()">保存</button>
+				</div>
 			</div>
 			<div class="btn-group" style="padding-left:50px">
 				<select class="selectpicker" style="width: 205px;height:33px;"
-					id="allDimRegions">
+					id="allDimRegions" onchange="regionsChange()">
 				</select>
+				<div id="dimRegions" style="display:none;">
+					<input id="newDimRegions" style="width: 205px;height:33px;" />
+					<button class="btn btn-info" onclick="saveDimRegion()">保存</button>
+				</div>
 			</div>
 			<div class="btn-group" style="padding-left:50px">
 				<select class="selectpicker" style="width: 205px;height:33px;"
-					id="allDimBaseclass">
+					id="allDimBaseclass" onchange="baseclassChange()">
 				</select>
+				<div id="dimBaseclass" style="display:none;">
+					<input id="newDimBaseclass" style="width: 205px;height:33px;" />
+					<button class="btn btn-info" onclick="saveDimBaseclass()">保存</button>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -75,12 +100,13 @@
 			id="righttable" data-toggle="table" data-height="860">
 			<thead>
 				<tr>
-					<th data-field="collectDate" data-width="400">时间</th>
-					<th data-field="collectData" data-width="400">时间序列的值</th>
+					<th data-field="collectDate" sortable="true" data-width="400">时间</th>
+					<th data-field="collectData" sortable="true" data-width="400">时间序列的值</th>
 				</tr>
 			</thead>
 		</table>
-		<button class="btn btn-info" type="button" onclick="saveCollectDatas()">保存</button>
+		<button class="btn btn-info" type="button"
+			onclick="saveCollectDatas()">保存</button>
 	</div>
 
 	<div class="left"
@@ -136,62 +162,62 @@
 			</div>
 		</div>
 		<label class="control-label"
-			style="padding-left:30px;padding-top:15px;">步骤：</label>
-
-		<div class="baseStep" id="baseStep">
-			<div>
-				<div class="btn-group" style="padding-left:30px;">
-					<select class="selectpicker infotype"
-						style="width: 135px;height:33px;" id="infotype">
-						<option value="url" text="url">url</option>
-						<option value="date" text="日期">日期</option>
-						<option value="value" text="数值">数值</option>
-					</select>
-				</div>
-				<div class="btn-group">
-					<select class="selectpicker"
-						style="width: 135px;height:33px;" id="crawltype">
-						<option value="dom" text="dom结构">dom结构</option>
-						<option value="regex" text="regex">regex</option>
-						<option value="condition" text="筛选条件">筛选条件</option>
-					</select>
-				</div>
-				<input type="text" class="crawlrule" id="crawlrule"
-					style="width:205px;height:30px;">
-				<div class="glyphicon glyphicon-plus" id="plusStep"
-					onclick="baseOnplus()"></div>
-				<div class="glyphicon glyphicon-minus" onclick="baseDelstep()"></div>
-				<input type="checkbox" onclick="showOrhide()">
-				<div class="xlarge"
-					style="padding-left:30px;padding-top:8px;display:none;">
-					<input type="text" placeholder="" class="input-xlarge"
-						style="width:535px; height: 40px;">
-				</div>
-			</div>
-		</div>
-
-		<div class="stepContainer" id="div"></div>
-
-		<div class="choose" style="padding-top:8px;padding-left:30px;">
+			style="padding-left:30px;padding-top:15px;">步骤：
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 			<button class="btn btn-info" type="submit" id="creatStep"
 				onclick="creatStep()">新增步骤</button>
 			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 			<button class="btn btn-info" type="submit" id="delStep"
 				onclick="delStep()">删除步骤</button>
-		</div>
-		<label class="control-label"
-			style="padding-left:30px;padding-top:8px;">结果：</label>
-		<div style="padding-left:30px;padding-top:8px;padding-bottom: 8px;">
-			<!-- <input type="text" placeholder="" class="input-xlarge"
-				style="width:535px; height: 350px;"  id="testCapView"> -->
-			<textarea rows="10" cols="80" id="testCapView"></textarea>
-		</div>
-		<div class="choose" style="padding-top:30px;padding-left:30px;">
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 			<button class="btn btn-info" type="submit" id="clearCap"
 				onclick="clearCap()">重置</button>
 			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 			<button class="btn btn-info" type="submit" id="testCap"
 				onclick="testCap()">测试</button>
+		</label>
+		<div style="float:bottom;height:68%;overflow :auto">
+			<div class="baseStep" id="baseStep">
+				<div>
+					<div class="btn-group" style="padding-left:30px;">
+						<select class="selectpicker infotype"
+							style="width: 135px;height:33px;" id="infotype">
+							<option value="url" text="url">url</option>
+							<option value="date" text="日期">日期</option>
+							<option value="value" text="数值">数值</option>
+						</select>
+					</div>
+					<div class="btn-group">
+						<select class="selectpicker" style="width: 135px;height:33px;"
+							id="crawltype">
+							<option value="dom" text="dom结构">dom结构</option>
+							<option value="regex" text="regex">regex</option>
+							<option value="condition" text="筛选条件">筛选条件</option>
+						</select>
+					</div>
+					<input type="text" class="crawlrule" id="crawlrule"
+						style="width:205px;height:30px;">
+					<div class="glyphicon glyphicon-plus" id="plusStep"
+						onclick="baseOnplus()"></div>
+					<div class="glyphicon glyphicon-minus" onclick="baseDelstep()"></div>
+					<input type="checkbox" onclick="showOrhide()">
+					<div class="xlarge"
+						style="padding-left:30px;padding-top:8px;display:none;">
+						<input type="text" placeholder="" class="input-xlarge"
+							style="width:535px; height: 40px;">
+					</div>
+				</div>
+			</div>
+
+			<div class="stepContainer" id="div"></div>
+
+			<label class="control-label"
+				style="padding-left:30px;padding-top:8px;">结果：</label>
+			<div style="padding-left:30px;padding-top:8px;padding-bottom: 8px;">
+				<!-- <input type="text" placeholder="" class="input-xlarge"
+				style="width:535px; height: 350px;"  id="testCapView"> -->
+				<textarea rows="10" cols="80" id="testCapView"></textarea>
+			</div>
 		</div>
 	</div>
 	<div class="middle"
@@ -228,7 +254,7 @@
 		<div style="padding-left:30px;padding-top:8px;padding-bottom: 8px;">
 			<!-- <input type="text" placeholder="" class="input-xlarge"
 				style="width:370px; height: 120px;"  id="testDetView"> -->
-				<textarea rows="10" cols="50" id="testDetView"></textarea>
+			<textarea rows="10" cols="50" id="testDetView"></textarea>
 		</div>
 		<div class="choose" style="padding-top:30px;padding-left:30px;">
 			<button class="btn btn-info" type="submit" id="clearDet"

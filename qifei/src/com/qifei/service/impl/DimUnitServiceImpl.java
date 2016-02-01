@@ -37,4 +37,9 @@ public class DimUnitServiceImpl implements DimUnitService {
 		}
 	}
 
+	@Override
+	public int getMaxUnitId() {
+		return dimUnitDao.getMaxUnitId();
+	}
+
 }

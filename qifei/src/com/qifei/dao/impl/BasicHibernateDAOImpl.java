@@ -69,7 +69,7 @@ public abstract class BasicHibernateDAOImpl implements BasicDAO {
 		sessionFactory.getCurrentSession().flush();
 		return obj;
 	}
-
+	
 	public Object updateEntity(Object obj) {
 		sessionFactory.getCurrentSession().update(obj);
 		return obj;

@@ -6,4 +6,5 @@ import com.qifei.model.DimUnit;
 
 public interface DimUnitDAO extends BasicDAO {
 	public List<DimUnit> getAllDimUnits();
+	public int getMaxUnitId();
 }

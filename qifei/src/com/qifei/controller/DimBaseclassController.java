@@ -1,7 +1,11 @@
 package com.qifei.controller;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
@@ -21,13 +25,30 @@ public class DimBaseclassController {
 	@Autowired
 	DimBaseclassService dimBaseclassService;
 
-	@RequestMapping(value = "/getAllDimBaseclass",produces = {"application/json;charset=UTF-8"})
+	@RequestMapping(value = "/getAllDimBaseclass", produces = { "application/json;charset=UTF-8" })
 	@ResponseBody
 	public String getAllDimBaseclass(ModelAndView model)
 			throws JsonGenerationException, JsonMappingException, IOException {
 		List<DimBaseclass> list = dimBaseclassService.getAllDimBaseclass();
 		ObjectMapper objectMapper = new ObjectMapper();
 		String jsonString = objectMapper.writeValueAsString(list);
+		System.out.println(jsonString);
+		return jsonString;
+	}
+
+	@RequestMapping(value = "/saveDimBaseclass", produces = { "application/json;charset=UTF-8" })
+	@ResponseBody
+	public String saveDimBaseclass(HttpServletRequest request,
+			HttpServletResponse response) throws JsonGenerationException,
+			JsonMappingException, IOException {
+		String dimBaseclassName = request.getParameter("dimBaseclassName");
+		DimBaseclass dimBaseclass = new DimBaseclass();
+		dimBaseclass.setBaseclassName(dimBaseclassName);
+		dimBaseclass.setBaseclassId(dimBaseclassService.getMaxBaseclassId());
+		dimBaseclass.setIsValId(1);
+		dimBaseclassService.saveDimBaseclass(Arrays.asList(dimBaseclass));
+		ObjectMapper objectMapper = new ObjectMapper();
+		String jsonString = objectMapper.writeValueAsString(dimBaseclass);
 		System.out.println(jsonString);
 		return jsonString;
 	}

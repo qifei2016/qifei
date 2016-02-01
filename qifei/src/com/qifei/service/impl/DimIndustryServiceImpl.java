@@ -37,4 +37,9 @@ public class DimIndustryServiceImpl implements DimIndustryService {
 		}
 	}
 
+	@Override
+	public int getMaxDimIndustryId() {
+		return dimIndustryDAO.getMaxDimIndustryId();
+	}
+
 }

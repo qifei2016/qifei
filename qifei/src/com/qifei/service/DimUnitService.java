@@ -10,5 +10,7 @@ public interface DimUnitService {
 	public void deleteDimUnit(List<DimUnit> dimUnit);
 	
 	public void saveDimUnit(List<DimUnit> dimUnit);
+	
+	public int getMaxUnitId();
 
 }

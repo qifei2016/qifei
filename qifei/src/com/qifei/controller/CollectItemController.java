@@ -87,7 +87,7 @@ public class CollectItemController {
 		CollectItem collectItem = new CollectItem();
 		collectItem.setCollectItemId(id);
 		collectItemService.deleteCollectItem(Arrays.asList(collectItem));
-		
+
 		// 删除配置信息
 		configservice.deleteConfigById(collectItemId);
 	}
@@ -126,14 +126,14 @@ public class CollectItemController {
 			// ConfigParam param = configservice.getConfigById("10100");
 			ObjectMapper objectMapper = new ObjectMapper();
 			// String paramstr = objectMapper.writeValueAsString(param);
-			String paramstr = new String(request.getParameter("params").getBytes(
-					"ISO-8859-1"), "UTF-8");
+			String paramstr = new String(request.getParameter("params")
+					.getBytes("ISO-8859-1"), "UTF-8");
 			ConfigParam pageParam = objectMapper.readValue(paramstr,
 					ConfigParam.class);
-			if(pageParam.getId() != 0){
+			if (pageParam.getId() != 0) {
 				collectItem.setCollectItemId(pageParam.getId());
 			}
-			
+
 			collectItem.setCollectItemDesc(pageParam.getName());
 			collectItem.setCollectURL(pageParam.getUrl());
 			collectItem.setCollectKeywords(pageParam.getKeyword());
@@ -151,7 +151,7 @@ public class CollectItemController {
 			// 保存配置信息
 			configservice.addConfig(pageParam, collectItem.getCollectItemId()
 					+ "");
-			
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -229,6 +229,18 @@ public class CollectItemController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@RequestMapping(value = "/checkItemName", produces = { "application/json;charset=UTF-8" })
+	@ResponseBody
+	public String checkItemName(HttpServletRequest request,
+			HttpServletResponse response) throws JsonGenerationException,
+			JsonMappingException, IOException {
+		String itemId = request.getParameter("itemid");
+		String itemName = new String(request.getParameter("itemName").getBytes(
+				"ISO-8859-1"), "UTF-8");
+		boolean falg = collectItemService.checkItemName(itemName, itemId);
+		return String.valueOf(falg);
 	}
 
 }

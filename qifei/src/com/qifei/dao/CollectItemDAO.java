@@ -25,4 +25,6 @@ public interface CollectItemDAO extends BasicDAO {
 	public void deleteCollectItem(int collectitemid);
 	
 	public List<CollectItemVO> getAllEnableItems();
+	
+	public boolean checkItemName(String itemName, String itemId);
 }

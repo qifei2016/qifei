@@ -37,4 +37,9 @@ public class DimRegionServiceImpl implements DimRegionService {
 		}
 	}
 
+	@Override
+	public int getMaxRegionId() {
+		return dimRegionDAO.getMaxRegionId();
+	}
+
 }

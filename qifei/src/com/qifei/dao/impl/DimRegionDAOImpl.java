@@ -25,4 +25,12 @@ public class DimRegionDAOImpl extends BasicHibernateDAOImpl implements DimRegion
 		return DimRegion.class;
 	}
 
+	@Override
+	public int getMaxRegionId() {
+		int id = 0;
+		String hql = "select max(regionId) from DimRegion";
+		id = (Integer)sessionFactory.getCurrentSession().createQuery(hql).uniqueResult();
+		return id+1;
+	}
+
 }

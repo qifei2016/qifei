@@ -31,4 +31,6 @@ public interface CollectItemService {
 	public void updateItemStateByItemId(String itemId, String statue);
 	
 	public List<CollectItemVO> getAllEnableItems();
+	
+	public boolean checkItemName(String itemName, String itemId);
 }

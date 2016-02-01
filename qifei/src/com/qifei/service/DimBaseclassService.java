@@ -7,6 +7,8 @@ public interface DimBaseclassService {
 	
 	public List<DimBaseclass> getAllDimBaseclass();
 	
+	public int getMaxBaseclassId();
+	
 	public void deleteDimBaseclass(List<DimBaseclass> dimBaseclass);
 	
 	public void saveDimBaseclass(List<DimBaseclass> dimBaseclass);

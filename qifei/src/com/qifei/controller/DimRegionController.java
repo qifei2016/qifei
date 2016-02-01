@@ -1,7 +1,11 @@
 package com.qifei.controller;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
@@ -31,4 +35,20 @@ public class DimRegionController {
 		return jsonString;
 	}
 
+	@RequestMapping(value = "/saveDimRegion", produces = { "application/json;charset=UTF-8" })
+	@ResponseBody
+	public String saveDimRegion(HttpServletRequest request,
+			HttpServletResponse response) throws JsonGenerationException,
+			JsonMappingException, IOException {
+		String dimRegionName = request.getParameter("dimRegionName");
+		DimRegion dimIndustry = new DimRegion();
+		dimIndustry.setRegionName(dimRegionName);
+		dimIndustry.setRegionId(dimRegionService.getMaxRegionId());
+		dimIndustry.setIsValId(1);
+		dimRegionService.saveDimRegion(Arrays.asList(dimIndustry));
+		ObjectMapper objectMapper = new ObjectMapper();
+		String jsonString = objectMapper.writeValueAsString(dimIndustry);
+		System.out.println(jsonString);
+		return jsonString;
+	}
 }

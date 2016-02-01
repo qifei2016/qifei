@@ -263,7 +263,6 @@ public class CollectItemDAOImpl extends BasicHibernateDAOImpl implements
 
 	@Override
 	public List<CollectItemVO> getAllEnableItems() {
-		// TODO Auto-generated method stub
 		String sql = "select t.COLLECT_ITEM_ID, t.COLLECT_ITEM_DESC, t.COLLECT_SOURCE, t.COLLECT_URL, t.BASECLASS_ID, "
 				+ "t.INDUSTRY_ID, t.UNIT_ID, t.DATATYPE_ID, t.DATETYPE_ID, t.REGION_ID, t.XML_ID, t.COLLECT_KEYWORDS, "
 				+ "t.IS_VALID, t.LAST_UPDATE_TIME, t.REMARK, t.Status, t3.BASECLASS_NAME, t6.UNIT_NAME, t7.REGION_NAME, "
@@ -277,5 +276,23 @@ public class CollectItemDAOImpl extends BasicHibernateDAOImpl implements
 		List<CollectItemVO> collectItemVOs = conversionCollectItemVOs(list);
 
 		return collectItemVOs;
+	}
+
+	@Override
+	public boolean checkItemName(String itemName, String itemId) {
+		if (StringUtils.isEmpty(itemName)) {
+			return false;
+		}
+		String sql = "select * from t_collect_item where COLLECT_ITEM_DESC = '" + itemName + "' ";
+		if (!StringUtils.isEmpty(itemId)) {
+			sql = sql + " and collect_item_id !=" + itemId;
+		}
+		Query query = sessionFactory.getCurrentSession().createSQLQuery(sql);
+		@SuppressWarnings("unchecked")
+		List<Object> list = query.list();
+		if (CollectionUtils.isEmpty(list)) {
+			return true;
+		}
+		return false;
 	}
 }

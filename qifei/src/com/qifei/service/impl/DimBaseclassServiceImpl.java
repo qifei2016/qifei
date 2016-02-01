@@ -37,4 +37,9 @@ public class DimBaseclassServiceImpl implements DimBaseclassService {
 		}
 	}
 
+	@Override
+	public int getMaxBaseclassId() {
+		return dimBaseclassDAO.getMaxBaseclassId();
+	}
+
 }

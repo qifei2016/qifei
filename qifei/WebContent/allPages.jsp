@@ -36,11 +36,19 @@
 				<select class="selectpicker" style="width: 205px;height:33px;"
 					id="allDimUnits" onchange="unitsChange()">
 				</select>
+				<div id="dimunit" style="display:none;">
+					<input id="newDimunits" style="width: 205px;height:33px;" />
+					<button class="btn btn-info" onclick="saveDimunit()">保存</button>
+				</div>
 			</div>
 			<div class="btn-group" style="padding-left:50px">
 				<select class="selectpicker" style="width: 205px;height:33px;"
 					id="allDimIndustry" onchange="industryChange()">
 				</select>
+				<div id="dimIndustry" style="display:none;">
+					<input id="newDimIndustry" style="width: 205px;height:33px;" />
+					<button class="btn btn-info" onclick="saveDimIndustry()">保存</button>
+				</div>
 			</div>
 
 			<div class="btn-group" style="padding-left:80px">
@@ -61,11 +69,19 @@
 				<select class="selectpicker" style="width: 205px;height:33px;"
 					id="allDimRegions" onchange="regionsChange()">
 				</select>
+				<div id="dimRegions" style="display:none;">
+					<input id="newDimRegions" style="width: 205px;height:33px;" />
+					<button class="btn btn-info" onclick="saveDimRegion()">保存</button>
+				</div>
 			</div>
 			<div class="btn-group" style="padding-left:50px">
 				<select class="selectpicker" style="width: 205px;height:33px;"
 					id="allDimBaseclass" onchange="baseclassChange()">
 				</select>
+				<div id="dimBaseclass" style="display:none;">
+					<input id="newDimBaseclass" style="width: 205px;height:33px;" />
+					<button class="btn btn-info" onclick="saveDimBaseclass()">保存</button>
+				</div>
 			</div>
 			<div class="btn-group" style="padding-left:80px; width:405px">
 				<input type="text" class="form-control" placeholder="Search"

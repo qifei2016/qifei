@@ -10,5 +10,7 @@ public interface DimRegionService {
 	public void deleteDimRegion(List<DimRegion> dimRegion);
 	
 	public void saveDimRegion(List<DimRegion> dimRegion);
+	
+	public int getMaxRegionId();
 
 }

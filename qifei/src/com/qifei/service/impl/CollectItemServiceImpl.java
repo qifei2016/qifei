@@ -56,6 +56,7 @@ public class CollectItemServiceImpl implements CollectItemService {
 	public CollectItem saveCollectItem(CollectItem collectItem) {
 		collectItem = (CollectItem) collectItemDAO
 				.saveOrUpdateEntity(collectItem);
+		System.out.println("collectitem:"+collectItem.getCollectItemDesc());
 		return collectItem;
 	}
 
@@ -87,6 +88,11 @@ public class CollectItemServiceImpl implements CollectItemService {
 	@Transactional
 	public CollectItem updateCollectItem(CollectItem collectItem) {
 		return (CollectItem) collectItemDAO.updateEntity(collectItem);
+	}
+
+	@Override
+	public boolean checkItemName(String itemName, String itemId) {
+		return collectItemDAO.checkItemName(itemName, itemId);
 	}
 
 }

@@ -25,4 +25,12 @@ public class DimBaseclassDAOImpl extends BasicHibernateDAOImpl implements
 	public Class getEntityClass() {
 		return DimBaseclass.class;
 	}
+
+	@Override
+	public int getMaxBaseclassId() {
+		int id = 0;
+		String hql = "select max(baseclassId) from DimBaseclass";
+		id = (Integer)sessionFactory.getCurrentSession().createQuery(hql).uniqueResult();
+		return id+1;
+	}
 }
