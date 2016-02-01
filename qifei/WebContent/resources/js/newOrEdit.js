@@ -329,12 +329,42 @@ function toJson() {
 	} else {
 		map.charset = $('#codrule option:selected').val();
 	}
-	map.name = document.getElementById('name').value;
+	var name = document.getElementById('name').value;
+	if (baseclassId == "") {
+		alert("请填写名称！");
+		return;
+	}
+	map.name = name;
 	map.keyword = document.getElementById('keyword').value;
-	map.baseclassId = $('#allDimBaseclass option:selected').val();
-	map.industryId = $('#allDimIndustry option:selected').val();
-	map.unitId = $('#allDimUnits option:selected').val();
-	map.regionId = $('#allDimRegions option:selected').val();
+	
+	var unitId = $('#allDimUnits option:selected').val();
+	if (unitId == "") {
+		alert("请选择单位！");
+		return;
+	}
+	map.unitId = unitId;
+	
+	var industryId = $('#allDimIndustry option:selected').val();
+	if (industryId == "") {
+		alert("请选择行业！");
+		return;
+	}
+	map.industryId = industryId;
+	
+	var regionId= $('#allDimRegions option:selected').val();
+	if (regionId == "") {
+		alert("请选择区域！");
+		return;
+	}
+	map.regionId = regionId;
+	
+	var baseclassId = $('#allDimBaseclass option:selected').val();
+	if (baseclassId == "") {
+		alert("请选择指标！");
+		return;
+	}
+	map.baseclassId = baseclassId;
+	
 	map.dateTypeID = $('#dateType option:selected').val();
 	map.method = $('#method option:selected').val();
 	map.url = document.getElementById('url').value;
