@@ -135,6 +135,7 @@ window.onload = function() {
 					// 将data放入表格中
 					$("#righttable").bootstrapTable("load", data);
 					$("table.table tr td").bind("click", dataClick);
+					$("table.table tr td").bind("keyup", updateTableData);
 				},
 				error : function() {
 					alert("system error");
@@ -169,6 +170,18 @@ function dataClick(e) {
 	}
 }
 
+function updateTableData(e) {
+	var index = e.currentTarget.parentNode.getAttribute("data-index");
+	var rows = $.map($("#righttable").bootstrapTable('getData'), function(row) {
+		return row;
+	});
+	var a = e.currentTarget.cellIndex;
+	if (a == 0) {
+		rows[index].collectDate = e.currentTarget.textContent;
+	} else {
+		rows[index].collectData = e.currentTarget.textContent;
+	}
+};
 // 判断url是否有参数
 function GetUrlItemid() {
 	var url = location.search; // 获取url中"?"符后的字串
