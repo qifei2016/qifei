@@ -40,7 +40,8 @@ public class DimUnitController {
 	public String saveDimUnit(HttpServletRequest request,
 			HttpServletResponse response) throws JsonGenerationException,
 			JsonMappingException, IOException {
-		String dimUnitName = request.getParameter("dimUnitName");
+		String dimUnitName =  new String(request.getParameter("dimUnitName").getBytes(
+				"ISO-8859-1"), "UTF-8");
 		DimUnit dimIndustry = new DimUnit();
 		dimIndustry.setUnitName(dimUnitName);
 		dimIndustry.setUnitId(dimUnitService.getMaxUnitId());

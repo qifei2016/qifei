@@ -40,7 +40,8 @@ public class DimIndustryController {
 	public String saveDimIndustry(HttpServletRequest request,
 			HttpServletResponse response) throws JsonGenerationException,
 			JsonMappingException, IOException {
-		String dimIndustryName = request.getParameter("dimIndustryName");
+		String dimIndustryName = new String(request.getParameter("dimIndustryName").getBytes(
+				"ISO-8859-1"), "UTF-8");
 		DimIndustry dimIndustry = new DimIndustry();
 		dimIndustry.setIndustryId(dimIndustryService.getMaxDimIndustryId());
 		dimIndustry.setIndustryName(dimIndustryName);

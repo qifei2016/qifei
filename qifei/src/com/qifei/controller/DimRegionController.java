@@ -40,7 +40,8 @@ public class DimRegionController {
 	public String saveDimRegion(HttpServletRequest request,
 			HttpServletResponse response) throws JsonGenerationException,
 			JsonMappingException, IOException {
-		String dimRegionName = request.getParameter("dimRegionName");
+		String dimRegionName = new String(request.getParameter("dimRegionName").getBytes(
+				"ISO-8859-1"), "UTF-8");
 		DimRegion dimIndustry = new DimRegion();
 		dimIndustry.setRegionName(dimRegionName);
 		dimIndustry.setRegionId(dimRegionService.getMaxRegionId());

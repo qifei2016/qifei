@@ -41,7 +41,8 @@ public class DimBaseclassController {
 	public String saveDimBaseclass(HttpServletRequest request,
 			HttpServletResponse response) throws JsonGenerationException,
 			JsonMappingException, IOException {
-		String dimBaseclassName = request.getParameter("dimBaseclassName");
+		String dimBaseclassName = new String(request.getParameter("dimBaseclassName").getBytes(
+				"ISO-8859-1"), "UTF-8");
 		DimBaseclass dimBaseclass = new DimBaseclass();
 		dimBaseclass.setBaseclassName(dimBaseclassName);
 		dimBaseclass.setBaseclassId(dimBaseclassService.getMaxBaseclassId());
