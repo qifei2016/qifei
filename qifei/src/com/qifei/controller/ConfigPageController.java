@@ -90,7 +90,14 @@ public class ConfigPageController {
 		try {
 			@SuppressWarnings("rawtypes")
 			List<HashMap> resultlist = configservice.crawlData(param);
-			out.print(resultlist);
+			for(int i=0; i<resultlist.size(); i++){
+				out.println("urlDom:" + resultlist.get(i).get("urlDom"));
+				out.println("url:" + resultlist.get(i).get("url"));
+				out.println("dateDom:" + resultlist.get(i).get("dateDom"));
+				out.println("date:" + resultlist.get(i).get("date"));
+				out.println("valueDom:" + resultlist.get(i).get("valueDom"));
+				out.println("value:" + resultlist.get(i).get("value"));
+			}
 			out.close();
 		} catch (Exception e) {
 			e.printStackTrace();

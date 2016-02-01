@@ -306,8 +306,7 @@ function save() {
 	var saveMap = toJson();
 	$.ajax({
 		url : "saveCollectItem.do?params="
-				+ JSON.stringify(saveMap).replace(/\+/g, '%2B').replace(/\&/g,
-						"%26").replace(/\#/g, "%23"),
+				+ JSON.stringify(saveMap).replace(/\+/g, '%2B').replace(/\&/g,"%26").replace(/\#/g, "%23"),
 		type : "post",
 		dataType : "json",
 		success : function(data) {
@@ -330,7 +329,7 @@ function toJson() {
 		map.charset = $('#codrule option:selected').val();
 	}
 	var name = document.getElementById('name').value;
-	if (baseclassId == "") {
+	if (name == "") {
 		alert("请填写名称！");
 		return;
 	}
@@ -442,6 +441,7 @@ onplus = function() {
 							+ index
 							+ '">'
 							+ '<option value="url">url</option>'
+							+ '<option value="nextPage">下一页url</option>'
 							+ '<option value="date">日期</option>'
 							+ '<option value="value">数值</option>'
 							+ '</select>'
@@ -458,15 +458,15 @@ onplus = function() {
 							+ '<input type="text"  style="width:209px;height:30px" id="crawlruleAddStep_'
 							+ index
 							+ '">'
-							+
 							// '<div class="glyphicon glyphicon-plus"
 							// id="plusStep" onclick="onplus()"></div>' +
 							// '<div class="glyphicon glyphicon-minus"
 							// onclick="minDelstep()"></div>' +
-							'<input type="checkbox" onclick="showOrhide()">'
-							+ '<div  class="xlarge" style="padding-left:30px;padding-top:8px;display:none;">'
-							+ '<input type="text" placeholder="" class="input-xlarge" style="width:535px; height: 40px;">'
-							+ '</div>' + '</div>');
+							//'<input type="checkbox" onclick="showOrhide()">'
+							//+ '<div  class="xlarge" style="padding-left:30px;padding-top:8px;display:none;">'
+							//+ '<input type="text" placeholder="" class="input-xlarge" style="width:535px; height: 40px;">'
+							//+ '</div>' 
+							+ '</div>');
 }
 
 // 步骤删除
@@ -515,6 +515,7 @@ creatStep = function() {
 							+ index
 							+ '">'
 							+ '<option  value="url">url</option>'
+							+ '<option  value="nextPage">下一页url</option>'
 							+ '<option value="date">日期</option>'
 							+ '<option value="value">数值</option>'
 							+ '</select>'
@@ -533,10 +534,11 @@ creatStep = function() {
 							+ '">'
 							+ '<div class="glyphicon glyphicon-plus" id="plusStep" onclick="onplus()"></div>'
 							+ '<div class="glyphicon glyphicon-minus" onclick="minDelstep()"></div>'
-							+ '<input type="checkbox" onclick="showOrhide()">'
-							+ '<div  class="xlarge" style="padding-left:30px;padding-top:8px;display:none;">'
-							+ '<input type="text" placeholder="" class="input-xlarge" style="width:535px; height: 40px;">'
-							+ '</div>' + '</div>');
+							//+ '<input type="checkbox" onclick="showOrhide()">'
+							//+ '<div  class="xlarge" style="padding-left:30px;padding-top:8px;display:none;">'
+							//+ '<input type="text" placeholder="" class="input-xlarge" style="width:535px; height: 40px;">'
+							//+ '</div>' 
+							+ '</div>');
 }
 
 // 删除按钮
@@ -567,6 +569,7 @@ baseOnplus = function() {
 							+ index
 							+ '">'
 							+ '<option value="url">url</option>'
+							+ '<option value="nextPage">下一页url</option>'
 							+ '<option value="date">日期</option>'
 							+ '<option value="value">数值</option>'
 							+ '</select>'
@@ -583,17 +586,17 @@ baseOnplus = function() {
 							+ '<input type="text" class="crawlrule" style="width:209px;height:30px" id="crawlrule_'
 							+ index
 							+ '">'
-							+
 							// '<div class="glyphicon glyphicon-plus"
 							// id="plusStep_' + index + '"
 							// onclick="baseOnplus()"></div>' +
 							// '<div class="glyphicon glyphicon-minus"
 							// id="minusStep_' + index + '"
 							// onclick="baseDelstep()"></div>' +
-							'<input type="checkbox" onclick="showOrhide()">'
-							+ '<div  class="xlarge" style="padding-left:30px;padding-top:8px;display:none;">'
-							+ '<input type="text" placeholder="" class="input-xlarge" style="width:535px; height: 40px;">'
-							+ '</div>' + '</div>');
+							//'<input type="checkbox" onclick="showOrhide()">'
+							//+ '<div  class="xlarge" style="padding-left:30px;padding-top:8px;display:none;">'
+							//+ '<input type="text" placeholder="" class="input-xlarge" style="width:535px; height: 40px;">'
+							//+ '</div>' 
+							+ '</div>');
 }
 
 // 基础步骤删除

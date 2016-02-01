@@ -183,6 +183,7 @@
 						<select class="selectpicker infotype"
 							style="width: 135px;height:33px;" id="infotype">
 							<option value="url" text="url">url</option>
+							<option value="nextPage" text="nextPage">下一页url</option>
 							<option value="date" text="日期">日期</option>
 							<option value="value" text="数值">数值</option>
 						</select>
@@ -200,7 +201,7 @@
 					<div class="glyphicon glyphicon-plus" id="plusStep"
 						onclick="baseOnplus()"></div>
 					<div class="glyphicon glyphicon-minus" onclick="baseDelstep()"></div>
-					<input type="checkbox" onclick="showOrhide()">
+					<!-- input type="checkbox" onclick="showOrhide()"> -->
 					<div class="xlarge"
 						style="padding-left:30px;padding-top:8px;display:none;">
 						<input type="text" placeholder="" class="input-xlarge"

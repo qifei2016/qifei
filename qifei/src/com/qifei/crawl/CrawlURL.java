@@ -88,7 +88,8 @@ public class CrawlURL {
 		
 		//DOM
 		Document doc = Jsoup.parse(pageHtml);
-		String infotype = "", crawltype = "", crawlrule = "";
+		String infotype = "", crawltype = "", crawlrule = "", nexturl = "";
+		String[] nexts = null;
 		for(int i=0; i<substepslist.size(); i++){
 			map = substepslist.get(i);
 			infotype = map.get("infotype").toString();
@@ -128,6 +129,18 @@ public class CrawlURL {
 							}
 						}
 					}
+				}
+			}
+			//解析nexturl
+			if(infotype.equals("nextPage")){
+				if(crawltype.equals("dom")){
+					nexts = crawlrule.split(">");
+				}
+				if(crawltype.equals("condition")){
+					nexturl = getNextPage(doc, baseurl, nexts, crawlrule);
+				}
+				if(nexturl != "" && urllist.size()<5){
+					crawlres = crawlPage(nexturl, stepmap, crawlres);
 				}
 			}
 			
