@@ -7,6 +7,7 @@ function getTab() {
 	var region;
 	var industry;
 	var baseclass;
+	var captureState;
 	if (that.unitsValue) {
 		unit = that.unitsValue;
 	} else {
@@ -32,10 +33,17 @@ function getTab() {
 				: $('#allDimBaseclass option:selected').val();
 	}
 	var keywords = document.getElementById('itemid').value;
+	
+	if (that.captureStateValue) {
+		captureState = that.baseclassValue;
+	} else {
+		captureState = $('#captureState option:selected').val() == undefined ? ''
+				: $('#captureState option:selected').val();
+	}
 
 	var url = "queryCollectItems.do?name=" + keywords + "&unit=" + unit
 			+ "&region=" + region + "&industry=" + industry + "&baseclass="
-			+ baseclass;
+			+ baseclass + "&captureState=" + captureState;
 	$('#maintable').bootstrapTable('destroy');
 	$('#maintable').bootstrapTable({
 		method : 'get', // 这里要设置为get，不知道为什么 设置post获取不了

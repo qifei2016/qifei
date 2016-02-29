@@ -52,6 +52,7 @@ public class CollectItemController {
 		String region = request.getParameter("region");
 		String industry = request.getParameter("industry");
 		String baseclass = request.getParameter("baseclass");
+		String captureState = request.getParameter("captureState");
 		int currentPage = request.getParameter("offset") == null ? 1 : Integer
 				.parseInt(request.getParameter("offset"));
 		// 每页行数
@@ -62,7 +63,7 @@ public class CollectItemController {
 		// TODO 前台分页还没做
 		List<CollectItemVO> collectItems = collectItemService
 				.queryCollectItems(name, null, unit, region, industry,
-						baseclass, currentPage, showCount);// 0,100 返回前100条
+						baseclass, captureState, currentPage, showCount);// 0,100 返回前100条
 
 		ObjectMapper objectMapper = new ObjectMapper();
 		String jsonString = objectMapper.writeValueAsString(collectItems);
@@ -103,18 +104,20 @@ public class CollectItemController {
 				.queryCollectItemByCollectItemId(collectItemId);
 		// TODO 获取配置数据
 		ConfigParam param = configservice.getConfigById(collectItemId);
-		param.setName(collectItem.getCollectItemDesc());
-		param.setUrl(collectItem.getCollectURL());
-		param.setKeyword(collectItem.getCollectKeywords());
-		param.setBaseclassId(collectItem.getBaseclassId());
-		param.setSourceId(collectItem.getCollectSource());
-		param.setDateTypeID(collectItem.getDateTypeID());
-		param.setIndustryId(collectItem.getIndustryId());
-		param.setRegionId(collectItem.getRegionId());
-		param.setUnitId(collectItem.getUnitId());
+		if(collectItem != null){
+			param.setName(collectItem.getCollectItemDesc());
+			param.setUrl(collectItem.getCollectURL());
+			param.setKeyword(collectItem.getCollectKeywords());
+			param.setBaseclassId(collectItem.getBaseclassId());
+			param.setSourceId(collectItem.getCollectSource());
+			param.setDateTypeID(collectItem.getDateTypeID());
+			param.setIndustryId(collectItem.getIndustryId());
+			param.setRegionId(collectItem.getRegionId());
+			param.setUnitId(collectItem.getUnitId());
+		}
+		
 		ObjectMapper objectMapper = new ObjectMapper();
 		String jsonString = objectMapper.writeValueAsString(param);
-		System.out.println(jsonString);
 		return jsonString;
 	}
 

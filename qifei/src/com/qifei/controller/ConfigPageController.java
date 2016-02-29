@@ -1,6 +1,7 @@
 package com.qifei.controller;
 
 import java.io.PrintWriter;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
 
@@ -81,10 +82,10 @@ public class ConfigPageController {
 	public void testCrawlData(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		ObjectMapper objectMapper = new ObjectMapper();
-		String paramstr = new String(request.getParameter("params").getBytes(
-				"ISO-8859-1"), "UTF-8");
+//		String paramstr = new String(request.getParameter("params").getBytes(
+//				"ISO-8859-1"), "UTF-8");
+		String paramstr = request.getParameter("params");
 		ConfigParam param = objectMapper.readValue(paramstr, ConfigParam.class);
-		// ConfigParam param = configservice.getConfigById("10100");
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 		try {
@@ -108,8 +109,9 @@ public class ConfigPageController {
 	public void checkData(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		ObjectMapper objectMapper = new ObjectMapper();
-		String paramstr = new String(request.getParameter("params").getBytes(
-				"ISO-8859-1"), "UTF-8");
+//		String paramstr = new String(request.getParameter("params").getBytes(
+//				"ISO-8859-1"), "UTF-8");
+		String paramstr = request.getParameter("params");
 		ConfigParam param = objectMapper.readValue(paramstr, ConfigParam.class);
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();

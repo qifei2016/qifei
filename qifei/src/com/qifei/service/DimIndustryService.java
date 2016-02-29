@@ -7,6 +7,8 @@ public interface DimIndustryService {
 	
 	public List<DimIndustry> getAllDimIndustrys();
 	
+	public DimIndustry getDimIndustryByName(String name);
+	
 	public void deleteDimIndustry(List<DimIndustry> dimIndustry);
 	
 	public void saveDimIndustry(List<DimIndustry> dimIndustry);

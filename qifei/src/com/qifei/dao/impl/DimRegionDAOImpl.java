@@ -33,4 +33,16 @@ public class DimRegionDAOImpl extends BasicHibernateDAOImpl implements DimRegion
 		return id+1;
 	}
 
+	@Override
+	public DimRegion getRegionByName(String name) {
+		// TODO Auto-generated method stub
+		DimRegion region = new DimRegion();
+		String hql = "from DimRegion where regionName = '" + name + "'";
+		Query query = sessionFactory.getCurrentSession().createQuery(hql);
+		if(query.list().size() > 0){
+			region = (DimRegion) query.list().get(0);
+		}
+		return region;
+	}
+
 }

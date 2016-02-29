@@ -32,4 +32,16 @@ public class DimIndustryDAOImpl extends BasicHibernateDAOImpl implements DimIndu
 		id = (Integer)sessionFactory.getCurrentSession().createQuery(hql).uniqueResult();
 		return id+1;
 	}
+
+	@Override
+	public DimIndustry getIndustryByName(String name) {
+		// TODO Auto-generated method stub
+		DimIndustry industry = new DimIndustry();
+		String hql = "from DimIndustry where industryName = '" + name + "'";
+		Query query = sessionFactory.getCurrentSession().createQuery(hql);
+		if(query.list().size() > 0){
+			industry = (DimIndustry) query.list().get(0);
+		}
+		return industry;
+	}
 }

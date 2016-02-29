@@ -33,4 +33,16 @@ public class DimBaseclassDAOImpl extends BasicHibernateDAOImpl implements
 		id = (Integer)sessionFactory.getCurrentSession().createQuery(hql).uniqueResult();
 		return id+1;
 	}
+
+	@Override
+	public DimBaseclass getBaseclassByName(String name) {
+		// TODO Auto-generated method stub
+		DimBaseclass base = new DimBaseclass();
+		String hql = "from DimBaseclass where baseclassName = '" + name + "'";
+		Query query = sessionFactory.getCurrentSession().createQuery(hql);
+		if(query.list().size() > 0){
+			base = (DimBaseclass) query.list().get(0);
+		}
+		return base;
+	}
 }

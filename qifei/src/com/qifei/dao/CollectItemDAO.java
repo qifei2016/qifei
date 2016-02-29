@@ -11,7 +11,7 @@ public interface CollectItemDAO extends BasicDAO {
 
 	public List<CollectItemVO> queryCollectItems(String name,
 			String collectKeywords, String datetype, String region,
-			String industry, String category, int startRecode, int maxRecode);
+			String industry, String category, String captureState, int startRecode, int maxRecode);
 
 	public Integer getCollectItemsCount(String name,String collectKeywords, String unit,
 			String region, String industry, String category);
@@ -27,4 +27,7 @@ public interface CollectItemDAO extends BasicDAO {
 	public List<CollectItemVO> getAllEnableItems();
 	
 	public boolean checkItemName(String itemName, String itemId);
+	
+	public void updateItemCaptureStateByItemId(String itemId,
+			String captureState);
 }

@@ -33,4 +33,16 @@ public class DimUnitDAOImpl extends BasicHibernateDAOImpl implements DimUnitDAO 
 		return id+1;
 	}
 
+	@Override
+	public DimUnit getUnitByName(String name) {
+		// TODO Auto-generated method stub
+		DimUnit unit = new DimUnit();
+		String hql = "from DimUnit where unitName = '" + name + "'";
+		Query query = sessionFactory.getCurrentSession().createQuery(hql);
+		if(query.list().size() > 0){
+			unit = (DimUnit) query.list().get(0);
+		}
+		return unit;
+	}
+
 }

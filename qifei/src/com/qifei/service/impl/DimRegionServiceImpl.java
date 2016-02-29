@@ -42,4 +42,10 @@ public class DimRegionServiceImpl implements DimRegionService {
 		return dimRegionDAO.getMaxRegionId();
 	}
 
+	@Override
+	public DimRegion getRegionByName(String name) {
+		// TODO Auto-generated method stub
+		return dimRegionDAO.getRegionByName(name);
+	}
+
 }

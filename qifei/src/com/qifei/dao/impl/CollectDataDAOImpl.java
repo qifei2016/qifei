@@ -22,7 +22,7 @@ public class CollectDataDAOImpl extends BasicHibernateDAOImpl implements
 
 	@Override
 	public void saveCollectData(CollectData data) {
-		this.saveOrUpdateEntity(data);
+		this.saveOrUpdateEntity(data, 1);
 	}
 	
 

@@ -25,10 +25,10 @@ public class CollectItemServiceImpl implements CollectItemService {
 	@Override
 	public List<CollectItemVO> queryCollectItems(String name,
 			String collectKeywords, String unit, String region,
-			String industry, String baseclass, int startRecode, int maxRecode) {
+			String industry, String baseclass, String captureState, int startRecode, int maxRecode) {
 
 		return collectItemDAO.queryCollectItems(name, collectKeywords, unit,
-				region, industry, baseclass, startRecode, maxRecode);
+				region, industry, baseclass, captureState, startRecode, maxRecode);
 	}
 
 	@Override
@@ -61,6 +61,7 @@ public class CollectItemServiceImpl implements CollectItemService {
 	}
 
 	@Override
+	@Transactional
 	public void updateItemStateByItemId(String itemId, String statue) {
 		collectItemDAO.updateItemStateByItemId(itemId, statue);
 	}

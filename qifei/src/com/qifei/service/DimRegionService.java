@@ -7,6 +7,8 @@ public interface DimRegionService {
 	
 	public List<DimRegion> getAllDimRegions();
 	
+	public DimRegion getRegionByName(String name);
+	
 	public void deleteDimRegion(List<DimRegion> dimRegion);
 	
 	public void saveDimRegion(List<DimRegion> dimRegion);

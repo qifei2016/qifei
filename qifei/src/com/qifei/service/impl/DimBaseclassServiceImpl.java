@@ -42,4 +42,10 @@ public class DimBaseclassServiceImpl implements DimBaseclassService {
 		return dimBaseclassDAO.getMaxBaseclassId();
 	}
 
+	@Override
+	public DimBaseclass getBaseclassByName(String name) {
+		// TODO Auto-generated method stub
+		return dimBaseclassDAO.getBaseclassByName(name);
+	}
+
 }

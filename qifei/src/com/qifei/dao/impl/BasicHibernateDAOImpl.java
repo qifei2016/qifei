@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -67,6 +68,13 @@ public abstract class BasicHibernateDAOImpl implements BasicDAO {
 	public Object saveOrUpdateEntity(Object obj) {
 		sessionFactory.getCurrentSession().saveOrUpdate(obj);
 		sessionFactory.getCurrentSession().flush();
+		return obj;
+	}
+	
+	public Object saveOrUpdateEntity(Object obj, int flag) {
+		Session s = sessionFactory.openSession();
+		s.saveOrUpdate(obj);
+		s.close();
 		return obj;
 	}
 	

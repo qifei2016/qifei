@@ -42,11 +42,15 @@ public class DimRegionController {
 			JsonMappingException, IOException {
 		String dimRegionName = new String(request.getParameter("dimRegionName").getBytes(
 				"ISO-8859-1"), "UTF-8");
-		DimRegion dimIndustry = new DimRegion();
-		dimIndustry.setRegionName(dimRegionName);
-		dimIndustry.setRegionId(dimRegionService.getMaxRegionId());
-		dimIndustry.setIsValId(1);
-		dimRegionService.saveDimRegion(Arrays.asList(dimIndustry));
+		DimRegion dimIndustry = dimRegionService.getRegionByName(dimRegionName);
+		if(dimIndustry.getRegionId() == null){
+			dimIndustry.setRegionName(dimRegionName);
+			dimIndustry.setRegionId(dimRegionService.getMaxRegionId());
+			dimIndustry.setIsValId(1);
+			dimRegionService.saveDimRegion(Arrays.asList(dimIndustry));
+			dimIndustry.setRemark("new");
+		}
+		
 		ObjectMapper objectMapper = new ObjectMapper();
 		String jsonString = objectMapper.writeValueAsString(dimIndustry);
 		System.out.println(jsonString);

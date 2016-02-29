@@ -12,7 +12,7 @@ public interface CollectItemService {
 	public List<CollectItem> getAllCollectItems();
 
 	public List<CollectItemVO> queryCollectItems(String name,String collectKeywords, String datetype,
-			String region, String industry, String category, int startRecode,
+			String region, String industry, String category, String captureState, int startRecode,
 			int maxRecode);
 	
 	public Integer getCollectItemsCount(String name, String collectKeywords,

@@ -42,4 +42,10 @@ public class DimUnitServiceImpl implements DimUnitService {
 		return dimUnitDao.getMaxUnitId();
 	}
 
+	@Override
+	public DimUnit getUnitByName(String name) {
+		// TODO Auto-generated method stub
+		return dimUnitDao.getUnitByName(name);
+	}
+
 }

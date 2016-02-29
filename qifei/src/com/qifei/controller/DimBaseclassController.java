@@ -43,11 +43,15 @@ public class DimBaseclassController {
 			JsonMappingException, IOException {
 		String dimBaseclassName = new String(request.getParameter("dimBaseclassName").getBytes(
 				"ISO-8859-1"), "UTF-8");
-		DimBaseclass dimBaseclass = new DimBaseclass();
-		dimBaseclass.setBaseclassName(dimBaseclassName);
-		dimBaseclass.setBaseclassId(dimBaseclassService.getMaxBaseclassId());
-		dimBaseclass.setIsValId(1);
-		dimBaseclassService.saveDimBaseclass(Arrays.asList(dimBaseclass));
+		DimBaseclass dimBaseclass = dimBaseclassService.getBaseclassByName(dimBaseclassName);
+		if(dimBaseclass.getBaseclassId() == null){
+			dimBaseclass.setBaseclassName(dimBaseclassName);
+			dimBaseclass.setBaseclassId(dimBaseclassService.getMaxBaseclassId());
+			dimBaseclass.setIsValId(1);
+			dimBaseclassService.saveDimBaseclass(Arrays.asList(dimBaseclass));
+			dimBaseclass.setRemark("new");
+		}
+		
 		ObjectMapper objectMapper = new ObjectMapper();
 		String jsonString = objectMapper.writeValueAsString(dimBaseclass);
 		System.out.println(jsonString);

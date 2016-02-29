@@ -42,11 +42,15 @@ public class DimIndustryController {
 			JsonMappingException, IOException {
 		String dimIndustryName = new String(request.getParameter("dimIndustryName").getBytes(
 				"ISO-8859-1"), "UTF-8");
-		DimIndustry dimIndustry = new DimIndustry();
-		dimIndustry.setIndustryId(dimIndustryService.getMaxDimIndustryId());
-		dimIndustry.setIndustryName(dimIndustryName);
-		dimIndustry.setIsValId(1);
-		dimIndustryService.saveDimIndustry(Arrays.asList(dimIndustry));
+		DimIndustry dimIndustry = dimIndustryService.getDimIndustryByName(dimIndustryName);
+		if(dimIndustry.getIndustryId() == null){
+			dimIndustry.setIndustryId(dimIndustryService.getMaxDimIndustryId());
+			dimIndustry.setIndustryName(dimIndustryName);
+			dimIndustry.setIsValId(1);
+			dimIndustryService.saveDimIndustry(Arrays.asList(dimIndustry));
+			dimIndustry.setRemark("new");
+		}
+		
 		ObjectMapper objectMapper = new ObjectMapper();
 		String jsonString = objectMapper.writeValueAsString(dimIndustry);
 		System.out.println(jsonString);

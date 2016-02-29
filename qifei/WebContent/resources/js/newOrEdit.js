@@ -284,9 +284,11 @@ function clearDet() {
 function testCap() {
 	var testCapMap = toJson();
 	$.ajax({
-		url : "testCrawlData.do?params="
-				+ JSON.stringify(testCapMap).replace(/\+/g, '%2B').replace(
-						/\&/g, "%26").replace(/\#/g, "%23"),
+//		url : "testCrawlData.do?params="
+//				+ JSON.stringify(testCapMap).replace(/\+/g, '%2B').replace(
+//						/\&/g, "%26").replace(/\#/g, "%23"),
+		url:"testCrawlData.do",
+		data:{"params":JSON.stringify(testCapMap)},
 		type : "post",
 		success : function(data) {
 			document.getElementById("testCapView").value = data.toString();
@@ -301,9 +303,8 @@ function testCap() {
 function testDet() {
 	var testDetMap = toJson();
 	$.ajax({
-		url : "checkData.do?params="
-				+ JSON.stringify(testDetMap).replace(/\+/g, '%2B').replace(
-						/\&/g, "%26").replace(/\#/g, "%23"),
+		url : "checkData.do",
+		data:{"params":JSON.stringify(testDetMap)},
 		type : "post",
 		success : function(data) {
 			document.getElementById("testDetView").value = data.toString();
@@ -641,9 +642,19 @@ function saveDimunit() {
 		success : function(dimUnit) {
 			var unitId = dimUnit.unitId;
 			var unitName = dimUnit.unitName;
+			var remark = dimUnit.remark;
 			var select = document.getElementById("allDimUnits").options;
-			select.add(new Option(unitName, unitId));
-			select.selectedIndex = select.length - 1;
+//			select.add(new Option(unitName, unitId));
+//			select.selectedIndex = select.length - 1;
+			if(remark == "new"){
+				select.add(new Option(unitName, unitId));
+			}
+			$("#allDimUnits option").each(function(op){
+				if(this.innerHTML == unitName){
+					select.selectedIndex = op;
+					return false;
+				}
+			});
 			unitsChange();
 		},
 		error : function() {
@@ -674,9 +685,20 @@ function saveDimIndustry() {
 		success : function(dimIndustry) {
 			var industryId = dimIndustry.industryId;
 			var industryName = dimIndustry.industryName;
+			var remark = dimIndustry.remark;
 			var select = document.getElementById("allDimIndustry").options;
-			select.add(new Option(industryName, industryId));
-			select.selectedIndex = select.length - 1;
+			if(remark == "new"){
+				select.add(new Option(industryName, industryId));
+			}
+//			select.add(new Option(industryName, industryId));
+//			select.selectedIndex = select.length - 1;
+			$("#allDimIndustry option").each(function(op){
+				if(this.innerHTML == industryName){
+					select.selectedIndex = op;
+					return false;
+				}
+			}); 
+			
 			industryChange();
 		},
 		error : function() {
@@ -701,15 +723,25 @@ function regionsChange() {
 function saveDimRegion() {
 	var dimUnitName = $("#newDimRegions").val();
 	$.ajax({
-		url : "saveDimUnit.do?dimUnitName=" + dimUnitName,
+		url : "saveDimRegion.do?dimRegionName=" + dimUnitName,
 		type : "get",
 		dataType : "json",
 		success : function(dimUnit) {
 			var regionId = dimUnit.regionId;
 			var regionName = dimUnit.regionName;
+			var remark = dimUnit.remark;
 			var select = document.getElementById("allDimRegions").options;
-			select.add(new Option(regionName, regionId));
-			select.selectedIndex = select.length - 1;
+//			select.add(new Option(regionName, regionId));
+//			select.selectedIndex = select.length - 1;
+			if(remark == "new"){
+				select.add(new Option(regionName, regionId));
+			}
+			$("#allDimRegions option").each(function(op){
+				if(this.innerHTML == regionName){
+					select.selectedIndex = op;
+					return false;
+				}
+			});
 			regionsChange();
 		},
 		error : function() {
@@ -741,9 +773,19 @@ function saveDimBaseclass() {
 		success : function(dimBaseclass) {
 			var baseclassId = dimBaseclass.baseclassId;
 			var baseclassName = dimBaseclass.baseclassName;
+			var remark = dimBaseclass.remark;
 			var select = document.getElementById("allDimBaseclass").options;
-			select.add(new Option(baseclassName, baseclassId));
-			select.selectedIndex = select.length - 1;
+//			select.add(new Option(baseclassName, baseclassId));
+//			select.selectedIndex = select.length - 1;
+			if(remark == "new"){
+				select.add(new Option(baseclassName, baseclassId));
+			}
+			$("#allDimBaseclass option").each(function(op){
+				if(this.innerHTML == baseclassName){
+					select.selectedIndex = op;
+					return false;
+				}
+			});
 			baseclassChange();
 		},
 		error : function() {
@@ -760,8 +802,8 @@ function v_name() {
 		flags = false;
 		enableSubmit(flags);
 	} else {
-		if (name.length > 32) {
-			lineState("name", "error", "必须少于32个字符");
+		if (name.length > 300) {
+			lineState("name", "error", "必须少于300个字符");
 			flags = false;
 			enableSubmit(flags);
 		} else {

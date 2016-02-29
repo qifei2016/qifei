@@ -41,7 +41,7 @@ public class CollectItemDAOImpl extends BasicHibernateDAOImpl implements
 
 	@Override
 	public List<CollectItemVO> queryCollectItems(String name, String collectKeywords, String unit,
-			String region, String industry, String baseclass, int startRecode,
+			String region, String industry, String baseclass, String captureState, int startRecode,
 			int maxRecode) {
 		String sql = "select t.COLLECT_ITEM_ID, t.COLLECT_ITEM_DESC, t.COLLECT_SOURCE, t.COLLECT_URL, t.BASECLASS_ID, t.INDUSTRY_ID, t.UNIT_ID, t.DATATYPE_ID, t.DATETYPE_ID, "
 				+ " t.REGION_ID, t.XML_ID, t.COLLECT_KEYWORDS, t.IS_VALID, t.LAST_UPDATE_TIME, t.REMARK, t.Status, t3.BASECLASS_NAME, "
@@ -62,6 +62,9 @@ public class CollectItemDAOImpl extends BasicHibernateDAOImpl implements
 		if (!StringUtils.isEmpty(collectKeywords)) {
 			condition = condition + "t.COLLECT_KEYWORDS like '%" + collectKeywords
 					+ "%' and ";
+		}
+		if (!StringUtils.isEmpty(captureState) && !captureState.equals("0")) {
+			condition = condition + "t.CLASS2 in (" + captureState + ") and ";
 		}
 		if (!StringUtils.isEmpty(unit)) {
 			condition = condition + "t.UNIT_ID in (" + unit + ") and ";
@@ -219,6 +222,15 @@ public class CollectItemDAOImpl extends BasicHibernateDAOImpl implements
 		Query query = sessionFactory.getCurrentSession().createSQLQuery(sql);
 		query.executeUpdate();
 	}
+	
+	@Override
+	public void updateItemCaptureStateByItemId(String itemId,
+			String captureState) {
+		String sql = "UPDATE t_collect_item SET CLASS2 = '" + captureState
+				+ "' WHERE collect_item_id = " + itemId;
+		Query query = sessionFactory.getCurrentSession().createSQLQuery(sql);
+		query.executeUpdate();
+	}
 
 	public int saveOrUpdateItem(CollectItem item) {
 		int id = -1;
@@ -295,4 +307,5 @@ public class CollectItemDAOImpl extends BasicHibernateDAOImpl implements
 		}
 		return false;
 	}
+
 }

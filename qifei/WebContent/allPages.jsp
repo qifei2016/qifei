@@ -58,6 +58,7 @@
 			<div class="btn-group" style="padding-left:30px">
 				<select class="selectpicker" style="width: 135px;height:33px;"
 					id="captureState" onchange="captureState()">
+					<option value="0"></option>
 					<option value="1">抓取失败</option>
 					<option value="2">抓取成功</option>
 				</select>

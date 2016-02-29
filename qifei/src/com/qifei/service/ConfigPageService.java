@@ -22,4 +22,6 @@ public interface ConfigPageService {
 	public List checkData(List<HashMap> list, ConfigParam param);
 	
 	public void saveCollectData(CollectData data);
+	
+	public void updateItemCaptureStateByItemId(String itemId, String captureState);
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.util.CollectionUtils;
 
 import com.qifei.model.CollectData;
 import com.qifei.model.ConfigParam;
@@ -27,6 +28,11 @@ public class ThreadCrawler implements Runnable {
 		ConfigParam param = configservice.getConfigById(itemid);
 		List<CollectData> collectdatalist = configservice.crawlData(param,
 				itemid);
+		String captureState = "2";
+		if (CollectionUtils.isEmpty(collectdatalist)) {
+			captureState = "1";
+		}
+		//configservice.updateItemCaptureStateByItemId(itemid, captureState);
 		for (int i = 0; i < collectdatalist.size(); i++) {
 			CollectData collectdata = collectdatalist.get(i);
 			configservice.saveCollectData(collectdata);

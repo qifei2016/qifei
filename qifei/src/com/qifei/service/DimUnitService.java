@@ -7,6 +7,8 @@ public interface DimUnitService {
 	
 	public List<DimUnit> getAllDimUnits();
 	
+	public DimUnit getUnitByName(String name);
+	
 	public void deleteDimUnit(List<DimUnit> dimUnit);
 	
 	public void saveDimUnit(List<DimUnit> dimUnit);

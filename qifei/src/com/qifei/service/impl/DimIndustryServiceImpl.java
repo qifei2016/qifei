@@ -42,4 +42,10 @@ public class DimIndustryServiceImpl implements DimIndustryService {
 		return dimIndustryDAO.getMaxDimIndustryId();
 	}
 
+	@Override
+	public DimIndustry getDimIndustryByName(String name) {
+		// TODO Auto-generated method stub
+		return dimIndustryDAO.getIndustryByName(name);
+	}
+
 }

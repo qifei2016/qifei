@@ -19,8 +19,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.qifei.crawl.CheckConfig;
 import com.qifei.crawl.CrawlURL;
+import com.qifei.crawl.Crawler;
 import com.qifei.crawl.crawlerConfig;
 import com.qifei.dao.CollectDataDAO;
+import com.qifei.dao.CollectItemDAO;
 import com.qifei.dao.XMLDAO;
 import com.qifei.model.CollectData;
 import com.qifei.model.ConfigParam;
@@ -34,6 +36,8 @@ public class ConfigPageServiceImpl implements ConfigPageService {
 	XMLDAO xmlDao;
 	@Autowired
 	CollectDataDAO collectDataDao;
+	@Autowired
+	CollectItemDAO collectItemDAO;
 
 	/**
 	 * 根据id查找配置信息
@@ -201,7 +205,7 @@ public class ConfigPageServiceImpl implements ConfigPageService {
 		// TODO Auto-generated method stub
 		String url = param.getUrl();
 		List<CollectData> collectlist = new ArrayList<CollectData>();
-		
+		Crawler crawl = new Crawler();
 		if(url != null){
 			// 定位最终url
 			CrawlURL crawlurl = new CrawlURL();
@@ -215,9 +219,9 @@ public class ConfigPageServiceImpl implements ConfigPageService {
 
 			try {
 				for (int i = 0; i < urlList.size(); i++) {
+					resultmap = crawlcon.getCell(urlList.get(i), param);
 					if(resultmap.get("value") != null && resultmap.get("value").length()>0 ){
 						CollectData collectdata = new CollectData();
-						resultmap = crawlcon.getCell(urlList.get(i), param);
 						resultmap.put("url", urlList.get(i));
 						resultmap.put("urlDom", crawlresult.getUrlDomlist());
 						resultmaplist.add(resultmap);
@@ -235,6 +239,10 @@ public class ConfigPageServiceImpl implements ConfigPageService {
 							collectdata.setCollectDate(sdf.parse(resultmap.get("date")));
 						}else if(date.matches("\\d{4}\\d{1,2}\\d{1,2}")){
 							SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+							collectdata.setCollectDate(sdf.parse(resultmap.get("date")));
+						}else if(date.matches("\\d{4}年\\d{1,2}月.*")){
+							date = crawl.getMatchHtml(date, "\\d{4}年\\d{1,2}月");
+							SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月");
 							collectdata.setCollectDate(sdf.parse(resultmap.get("date")));
 						}
 					
@@ -262,8 +270,8 @@ public class ConfigPageServiceImpl implements ConfigPageService {
 	@Transactional
 	public void saveCollectData(CollectData data) {
 		// TODO Auto-generated method stub
-		// collectDataDao.saveCollectData(data);
-		collectDataDao.saveOrUpdateEntity(data);
+		 collectDataDao.saveCollectData(data);
+	//	collectDataDao.saveOrUpdateEntity(data);
 	}
 
 	@Override
@@ -358,5 +366,12 @@ public class ConfigPageServiceImpl implements ConfigPageService {
 			e.printStackTrace();
 		}
 		return resultmaplist;
+	}
+
+	@Override
+	@Transactional
+	public void updateItemCaptureStateByItemId(String itemId,
+			String captureState) {
+		collectItemDAO.updateItemCaptureStateByItemId(itemId, captureState);		
 	}
 }
