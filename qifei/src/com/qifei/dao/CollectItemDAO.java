@@ -14,7 +14,7 @@ public interface CollectItemDAO extends BasicDAO {
 			String industry, String category, String captureState, int startRecode, int maxRecode);
 
 	public Integer getCollectItemsCount(String name,String collectKeywords, String unit,
-			String region, String industry, String category);
+			String region, String industry, String category, String captureState);
 	
 	public CollectItemVO queryCollectItemByCollectItemId(String collectItemId);
 

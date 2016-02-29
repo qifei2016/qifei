@@ -69,7 +69,7 @@ public class CollectItemController {
 		String jsonString = objectMapper.writeValueAsString(collectItems);
 		System.out.println(jsonString);
 		int total = collectItemService.getCollectItemsCount(name, null, unit,
-				region, industry, baseclass);
+				region, industry, baseclass, captureState);
 		String json = "{\"total\":" + total + ",\"rows\":" + jsonString + "}";
 		return json;
 	}

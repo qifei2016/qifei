@@ -32,7 +32,7 @@ public class ThreadCrawler implements Runnable {
 		if (CollectionUtils.isEmpty(collectdatalist)) {
 			captureState = "1";
 		}
-		//configservice.updateItemCaptureStateByItemId(itemid, captureState);
+		configservice.updateItemCaptureStateByItemId(itemid, captureState);
 		for (int i = 0; i < collectdatalist.size(); i++) {
 			CollectData collectdata = collectdatalist.get(i);
 			configservice.saveCollectData(collectdata);

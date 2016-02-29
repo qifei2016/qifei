@@ -16,7 +16,7 @@ public interface CollectItemService {
 			int maxRecode);
 	
 	public Integer getCollectItemsCount(String name, String collectKeywords,
-			String unit, String region, String industry, String category);
+			String unit, String region, String industry, String category, String captureState);
 	
 	public CollectItemVO queryCollectItemByCollectItemId(String collectItemId);
 	

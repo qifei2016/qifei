@@ -80,9 +80,9 @@ public class CollectItemServiceImpl implements CollectItemService {
 
 	@Override
 	public Integer getCollectItemsCount(String name, String collectKeywords,
-			String unit, String region, String industry, String category) {
+			String unit, String region, String industry, String category, String captureState) {
 		return collectItemDAO.getCollectItemsCount(name, collectKeywords, unit,
-				region, industry, category);
+				region, industry, category, captureState);
 	}
 
 	@Override

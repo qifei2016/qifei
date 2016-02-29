@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Query;
+import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
@@ -98,7 +99,7 @@ public class CollectItemDAOImpl extends BasicHibernateDAOImpl implements
 
 	@Override
 	public Integer getCollectItemsCount(String name, String collectKeywords,
-			String unit, String region, String industry, String baseclass) {
+			String unit, String region, String industry, String baseclass, String captureState) {
 		String sql = "select count(t.COLLECT_ITEM_ID) from t_collect_item t "
 				+ "join t_dim_baseclass t3 on t.BASECLASS_ID=t3.BASECLASS_ID "
 				+ "join t_dim_unit t6 on t.UNIT_ID=t6.UNIT_ID "
@@ -114,6 +115,9 @@ public class CollectItemDAOImpl extends BasicHibernateDAOImpl implements
 		if (!StringUtils.isEmpty(collectKeywords)) {
 			condition = condition + "t.COLLECT_KEYWORDS like '%"
 					+ collectKeywords + "%' and ";
+		}
+		if (!StringUtils.isEmpty(captureState) && !captureState.equals("0")) {
+			condition = condition + "t.CLASS2 in (" + captureState + ") and ";
 		}
 		if (!StringUtils.isEmpty(unit)) {
 			condition = condition + "t.UNIT_ID in (" + unit + ") and ";
@@ -228,8 +232,10 @@ public class CollectItemDAOImpl extends BasicHibernateDAOImpl implements
 			String captureState) {
 		String sql = "UPDATE t_collect_item SET CLASS2 = '" + captureState
 				+ "' WHERE collect_item_id = " + itemId;
-		Query query = sessionFactory.getCurrentSession().createSQLQuery(sql);
+		Session session = sessionFactory.openSession();
+		Query query = session.createSQLQuery(sql);
 		query.executeUpdate();
+		session.close();
 	}
 
 	public int saveOrUpdateItem(CollectItem item) {
